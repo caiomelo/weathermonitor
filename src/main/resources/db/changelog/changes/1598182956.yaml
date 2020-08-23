@@ -1,0 +1,119 @@
+databaseChangeLog:
+  - logicalFilePath: 1598182956.yaml
+
+  - changeSet:
+      logicalFilePath: 1598182956.yaml
+      id: 1598182956-1
+      author: caiomelo
+      comment: Creates USERS table
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE TABLENAME = 'USERS';
+      changes:
+        - sql:
+            sql: >
+              CREATE TABLE USERS (
+                ID INTEGER NOT NULL PRIMARY KEY,
+                EMAIL CHAR(40) NOT NULL CHECK (EMAIL <> ''),
+                CONSTRAINT USER_EMAIL UNIQUE(EMAIL)
+              )
+        - tagDatabase:
+            tag: 1598182956
+      rollback:
+        - sql:
+            sql: >
+              DROP TABLE USERS;
+
+  - changeSet:
+      logicalFilePath: 1598182956.yaml
+      id: 1598182956-2
+      author: caiomelo
+      comment: Creates USERS_SEQ sequence
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            sequenceExists:
+              sequenceName: USERS_SEQ
+      changes:
+        - sql:
+            sql: >
+              CREATE SEQUENCE USERS_SEQ OWNED BY USERS.ID
+        - tagDatabase:
+            tag: 1598182956
+      rollback:
+        - sql:
+            sql: >
+              DROP SEQUENCE USERS_SEQ;
+
+  - changeSet:
+      logicalFilePath: 1598182956.yaml
+      id: 1598182956-3
+      author: caiomelo
+      comment: Creates USEROBSERVEDCITY table
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE TABLENAME = 'USEROBSERVEDCITY';
+      changes:
+        - sql:
+            sql: >
+              CREATE TABLE USEROBSERVEDCITY (
+                ID INTEGER PRIMARY KEY,
+                USERID INTEGER NOT NULL,
+                EXTERNALID CHAR(40) NOT NULL,
+                OBSERVATIONPERIODSTART DATE NOT NULL,
+                OBSERVATIONPERIODEND DATE NOT NULL,
+                CONSTRAINT USER_OBS_CITY UNIQUE(USERID, EXTERNALID),
+                CONSTRAINT FK_USER FOREIGN KEY(USERID) REFERENCES USERS(ID) ON DELETE CASCADE
+              );
+        - tagDatabase:
+            tag: 1598182956
+      rollback:
+        - sql:
+            sql: >
+              DROP TABLE USEROBSERVEDCITY;
+
+  - changeSet:
+      logicalFilePath: 1598182956.yaml
+      id: 1598182956-4
+      author: caiomelo
+      comment: Creates index on USERID from USEROBSERVEDCITY
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            indexExists:
+              indexName: IDX_USER_USEROBSCITY
+      changes:
+        - sql:
+            sql: >
+              CREATE INDEX IDX_USER_USEROBSCITY ON USEROBSERVEDCITY(USERID);
+        - tagDatabase:
+            tag: 1598182956
+      rollback:
+        - sql:
+            sql: >
+              DROP INDEX IDX_USER_USEROBSCITY;
+
+  - changeSet:
+      logicalFilePath: 1598182956.yaml
+      id: 1598182956-5
+      author: caiomelo
+      comment: Creates USEROBSERVEDCITY_SEQ sequence
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            sequenceExists:
+              sequenceName: USEROBSERVEDCITY_SEQ
+      changes:
+        - sql:
+            sql: >
+              CREATE SEQUENCE USEROBSERVEDCITY_SEQ OWNED BY USEROBSERVEDCITY.ID;
+        - tagDatabase:
+            tag: 1598182956
+      rollback:
+        - sql:
+            sql: >
+              DROP SEQUENCE USEROBSERVEDCITY_SEQ;
