@@ -26,4 +26,9 @@ public class UserController {
     public User createOrUpdate(@RequestBody @Valid User user) {
         return service.createOrUpdate(user);
     }
+
+    @GetMapping("{email}/observation")
+    public User getUserObservation(@PathVariable String email) {
+        return service.getUserObservationFor(email);
+    }
 }

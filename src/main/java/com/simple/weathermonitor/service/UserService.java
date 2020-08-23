@@ -21,5 +21,9 @@ public class UserService {
         return repository.save(user);
     }
 
+    public User getUserObservationFor(String email) {
+        return repository.getUserObservation(email);
+    }
+
 
 }

@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
-@Entity(name = "USERS")
+@Entity(name = "Users")
 public class User {
 
     @Id
