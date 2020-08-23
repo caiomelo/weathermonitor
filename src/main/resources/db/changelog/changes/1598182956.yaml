@@ -16,7 +16,7 @@ databaseChangeLog:
             sql: >
               CREATE TABLE USERS (
                 ID INTEGER NOT NULL PRIMARY KEY,
-                EMAIL CHAR(40) NOT NULL CHECK (EMAIL <> ''),
+                EMAIL VARCHAR(40) NOT NULL CHECK (EMAIL <> ''),
                 CONSTRAINT USER_EMAIL UNIQUE(EMAIL)
               )
         - tagDatabase:
@@ -51,36 +51,36 @@ databaseChangeLog:
       logicalFilePath: 1598182956.yaml
       id: 1598182956-3
       author: caiomelo
-      comment: Creates USEROBSERVEDCITY table
+      comment: Creates USER_OBSERVED_CITY table
       preConditions:
         - onFail: MARK_RAN
         - sqlCheck:
             expectedResult: 0
-            sql: SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE TABLENAME = 'USEROBSERVEDCITY';
+            sql: SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE TABLENAME = 'USER_OBSERVED_CITY';
       changes:
         - sql:
             sql: >
-              CREATE TABLE USEROBSERVEDCITY (
+              CREATE TABLE USER_OBSERVED_CITY (
                 ID INTEGER PRIMARY KEY,
-                USERID INTEGER NOT NULL,
-                EXTERNALID CHAR(40) NOT NULL,
-                OBSERVATIONPERIODSTART DATE NOT NULL,
-                OBSERVATIONPERIODEND DATE NOT NULL,
-                CONSTRAINT USER_OBS_CITY UNIQUE(USERID, EXTERNALID),
-                CONSTRAINT FK_USER FOREIGN KEY(USERID) REFERENCES USERS(ID) ON DELETE CASCADE
+                USER_ID INTEGER NOT NULL,
+                EXTERNAL_ID CHAR(40) NOT NULL,
+                OBSERVATION_PERIOD_START TIMESTAMP NOT NULL,
+                OBSERVATION_PERIOD_END TIMESTAMP NOT NULL,
+                CONSTRAINT USER_OBS_CITY UNIQUE(USER_ID, EXTERNAL_ID),
+                CONSTRAINT FK_USER FOREIGN KEY(USER_ID) REFERENCES USERS(ID) ON DELETE CASCADE
               );
         - tagDatabase:
             tag: 1598182956
       rollback:
         - sql:
             sql: >
-              DROP TABLE USEROBSERVEDCITY;
+              DROP TABLE USER_OBSERVED_CITY;
 
   - changeSet:
       logicalFilePath: 1598182956.yaml
       id: 1598182956-4
       author: caiomelo
-      comment: Creates index on USERID from USEROBSERVEDCITY
+      comment: Creates index on USER_ID from USER_OBSERVED_CITY
       preConditions:
         - onFail: MARK_RAN
         - not:
@@ -89,7 +89,7 @@ databaseChangeLog:
       changes:
         - sql:
             sql: >
-              CREATE INDEX IDX_USER_USEROBSCITY ON USEROBSERVEDCITY(USERID);
+              CREATE INDEX IDX_USER_USEROBSCITY ON USER_OBSERVED_CITY(USER_ID);
         - tagDatabase:
             tag: 1598182956
       rollback:
@@ -110,7 +110,7 @@ databaseChangeLog:
       changes:
         - sql:
             sql: >
-              CREATE SEQUENCE USEROBSERVEDCITY_SEQ OWNED BY USEROBSERVEDCITY.ID;
+              CREATE SEQUENCE USEROBSERVEDCITY_SEQ OWNED BY USER_OBSERVED_CITY.ID;
         - tagDatabase:
             tag: 1598182956
       rollback:
