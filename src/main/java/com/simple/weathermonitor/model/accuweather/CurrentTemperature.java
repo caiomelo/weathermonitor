@@ -8,7 +8,7 @@ import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
-public class CurrentConditions {
+public class CurrentTemperature {
 
     @JsonProperty("LocalObservationDateTime")
     private Date localObservedDate;
