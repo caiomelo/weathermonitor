@@ -1,6 +1,7 @@
 package com.simple.weathermonitor.client;
 
 import com.simple.weathermonitor.model.accuweather.City;
+import com.simple.weathermonitor.model.accuweather.CurrentConditions;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,4 +17,7 @@ public interface AccuWeatherClient extends WeatherServiceClient {
 
     @GetMapping("/locations/v1/cities/search")
     List<City> search(@RequestParam("apikey") String apiKey, @RequestParam("q") String searchText);
+
+    @GetMapping("/currentconditions/v1/{locationKey}")
+    List<CurrentConditions> getCurrentConditions(@RequestParam("apikey") String apiKey, @PathVariable("locationKey") String cityKey);
 }
