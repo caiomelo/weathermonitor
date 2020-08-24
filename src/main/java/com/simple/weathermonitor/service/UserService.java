@@ -1,6 +1,5 @@
 package com.simple.weathermonitor.service;
 
-import com.simple.weathermonitor.client.WeatherServiceClient;
 import com.simple.weathermonitor.model.CityTemperatureInfo;
 import com.simple.weathermonitor.model.User;
 import com.simple.weathermonitor.model.UserObservedCity;
@@ -21,11 +20,9 @@ import static java.util.Optional.ofNullable;
 @Service
 public class UserService {
 
-    private static final String API_KEY = "svG4gWkiFwXjFGKllIefcDEvfL2JVsKT";
-
     private final UserRepository repository;
 
-    private final WeatherServiceClient weatherServiceClient;
+    private final WeatherService weatherService;
 
     public List<User> findAll() {
         return repository.findAll();
@@ -54,8 +51,7 @@ public class UserService {
     }
 
     private CurrentTemperature getCurrentTemperatureFor(UserObservedCity userObservedCity) {
-        List<CurrentTemperature> currentConditions = weatherServiceClient.getCurrentConditions(API_KEY,
-                userObservedCity.getExternalId());
+        List<CurrentTemperature> currentConditions = weatherService.getCurrentConditions(userObservedCity.getExternalId());
 
         return ofNullable(currentConditions).orElseGet(Collections::emptyList).isEmpty() ?
                 null : currentConditions.get(0);
