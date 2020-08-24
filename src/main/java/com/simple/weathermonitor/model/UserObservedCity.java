@@ -1,7 +1,6 @@
 package com.simple.weathermonitor.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,7 +22,11 @@ public class UserObservedCity {
 
     private String externalId;
 
+    private String cityName;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date observationPeriodStart;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date observationPeriodEnd;
 }
