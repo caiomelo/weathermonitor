@@ -1,6 +1,7 @@
 package com.simple.weathermonitor.controller;
 
 import com.simple.weathermonitor.model.User;
+import com.simple.weathermonitor.model.CityTemperatureInfo;
 import com.simple.weathermonitor.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("{email}/observation")
-    public User getUserObservation(@PathVariable String email) {
-        return service.getUserObservationFor(email);
+    public List<CityTemperatureInfo> getObservedTemperaturesFor(@PathVariable String email) {
+        return service.getCityObservationsFor(email);
     }
 }
