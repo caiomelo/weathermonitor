@@ -20,4 +20,8 @@ public class UserObservedCityService {
     public UserObservedCity createOrUpdate(UserObservedCity userObservedCity) {
         return repository.save(userObservedCity);
     }
+
+    public List<UserObservedCity> getActiveFor(String email) {
+        return repository.getActiveFor(email);
+    }
 }

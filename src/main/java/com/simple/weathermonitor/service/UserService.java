@@ -22,6 +22,8 @@ public class UserService {
 
     private final UserRepository repository;
 
+    private final UserObservedCityService observedCityService;
+
     private final WeatherService weatherService;
 
     public List<User> findAll() {
@@ -33,17 +35,13 @@ public class UserService {
     }
 
     public List<CityTemperatureInfo> getCityObservationsFor(String email) {
-        User userObservation = repository.findByEmail(email);
+        List<UserObservedCity> observedCities = observedCityService.getActiveFor(email);
 
-        if (userObservation == null) {
+        if (observedCities == null || observedCities.isEmpty()) {
             return Collections.emptyList();
         }
 
-        Date now = new Date();
-
-        return ofNullable(userObservation.getObservedCities()).orElseGet(Collections::emptyList).stream()
-                .filter(observedCity -> observedCity.getObservationPeriodStart().before(now) &&
-                        observedCity.getObservationPeriodEnd().after(now))
+        return observedCities.stream()
                 .map(observedCity -> ImmutablePair.of(observedCity, getCurrentTemperatureFor(observedCity)))
                 .filter(pair -> pair.right != null)
                 .map(pair -> new CityTemperatureInfo(pair.left, pair.right))
