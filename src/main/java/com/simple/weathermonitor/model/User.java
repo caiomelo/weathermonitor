@@ -2,6 +2,8 @@ package com.simple.weathermonitor.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -21,6 +23,8 @@ public class User {
     @NotBlank(message = "Email is mandatory")
     private String email;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JsonManagedReference("user-observedCity")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserObservedCity> observedCities;
