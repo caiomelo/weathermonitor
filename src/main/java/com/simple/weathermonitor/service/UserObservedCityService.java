@@ -1,17 +1,26 @@
 package com.simple.weathermonitor.service;
 
+import com.simple.weathermonitor.model.CityTemperatureInfo;
 import com.simple.weathermonitor.model.UserObservedCity;
+import com.simple.weathermonitor.model.accuweather.CurrentTemperature;
 import com.simple.weathermonitor.repository.UserObservedCityRepository;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.Optional.ofNullable;
 
 @AllArgsConstructor
 @Service
 public class UserObservedCityService {
 
     private final UserObservedCityRepository repository;
+
+    private final WeatherService weatherService;
 
     public List<UserObservedCity> findAll() {
         return repository.findAll();
@@ -21,7 +30,24 @@ public class UserObservedCityService {
         return repository.save(userObservedCity);
     }
 
-    public List<UserObservedCity> getActiveFor(String email) {
-        return repository.getActiveFor(email);
+    public List<CityTemperatureInfo> getCityObservationsFor(String email) {
+        List<UserObservedCity> observedCities = repository.getActiveFor(email);
+
+        if (observedCities == null || observedCities.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return observedCities.stream()
+                .map(observedCity -> ImmutablePair.of(observedCity, getCurrentTemperatureFor(observedCity)))
+                .filter(pair -> pair.right != null)
+                .map(pair -> new CityTemperatureInfo(pair.left, pair.right))
+                .collect(Collectors.toList());
+    }
+
+    private CurrentTemperature getCurrentTemperatureFor(UserObservedCity userObservedCity) {
+        List<CurrentTemperature> currentConditions = weatherService.getCurrentConditions(userObservedCity.getExternalId());
+
+        return ofNullable(currentConditions).orElseGet(Collections::emptyList).isEmpty() ?
+                null : currentConditions.get(0);
     }
 }

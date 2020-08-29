@@ -1,10 +1,8 @@
 package com.simple.weathermonitor.controller;
 
-import com.simple.weathermonitor.model.CityTemperatureInfo;
 import com.simple.weathermonitor.model.User;
 import com.simple.weathermonitor.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,14 +32,5 @@ public class UserController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public User createOrUpdate(@RequestBody @Valid User user) {
         return service.createOrUpdate(user);
-    }
-
-    @Operation(summary = "Retrieve temperature from active observed cities for a user",
-            description = "Retrieves the current temperature for all cities which are in an active observation period " +
-                    "for the user identified by the given email")
-    @GetMapping(value = "{email}/observation", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<CityTemperatureInfo> getObservedTemperaturesFor(
-            @Parameter(description = "User email", required = true) @PathVariable String email) {
-        return service.getCityObservationsFor(email);
     }
 }
