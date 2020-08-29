@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @FeignClient(value = "accuWeatherClient", url = "http://dataservice.accuweather.com")
-public interface AccuWeatherClient extends WeatherServiceClient {
+public interface AccuWeatherClient extends WeatherProvider {
 
     @GetMapping("/locations/v1/{locationKey}")
     City getCityInfo(@RequestParam("apikey") String apiKey, @PathVariable("locationKey") String cityKey);

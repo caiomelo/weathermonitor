@@ -12,9 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/city")
-public class CityController {
-
-    private static final String API_KEY = "svG4gWkiFwXjFGKllIefcDEvfL2JVsKT";
+public class WeatherController {
 
     private final WeatherService weatherService;
 

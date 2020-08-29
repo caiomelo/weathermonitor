@@ -1,6 +1,6 @@
 package com.simple.weathermonitor.service;
 
-import com.simple.weathermonitor.client.WeatherServiceClient;
+import com.simple.weathermonitor.client.WeatherProvider;
 import com.simple.weathermonitor.configuration.ConfigurationService;
 import com.simple.weathermonitor.model.accuweather.City;
 import com.simple.weathermonitor.model.accuweather.CurrentTemperature;
@@ -13,20 +13,20 @@ import java.util.List;
 @Service
 public class WeatherService {
 
-    private final WeatherServiceClient client;
+    private final WeatherProvider provider;
 
     private final ConfigurationService configuration;
 
     public List<CurrentTemperature> getCurrentConditions(String externalId) {
-        return client.getCurrentConditions(configuration.getApiKey(), externalId);
+        return provider.getCurrentConditions(configuration.getApiKey(), externalId);
     }
 
-    public City getCityInfo(String locationKey) {
-        return client.getCityInfo(configuration.getApiKey(), locationKey);
+    public City getCityInfo(String cityKey) {
+        return provider.getCityInfo(configuration.getApiKey(), cityKey);
     }
 
     public List<City> search(String searchText) {
-        return client.search(configuration.getApiKey(), searchText);
+        return provider.search(configuration.getApiKey(), searchText);
     }
 
 

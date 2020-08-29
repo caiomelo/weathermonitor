@@ -5,9 +5,9 @@ import com.simple.weathermonitor.model.accuweather.CurrentTemperature;
 
 import java.util.List;
 
-public interface WeatherServiceClient {
+public interface WeatherProvider {
 
-    City getCityInfo(String apiKey, String locationKey);
+    City getCityInfo(String apiKey, String cityKey);
 
     List<City> search(String apiKey, String searchText);
 
