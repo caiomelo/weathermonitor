@@ -2,12 +2,15 @@ package com.simple.weathermonitor.service;
 
 import com.simple.weathermonitor.client.WeatherProvider;
 import com.simple.weathermonitor.configuration.ConfigurationService;
-import com.simple.weathermonitor.model.accuweather.ProviderCity;
-import com.simple.weathermonitor.model.accuweather.ProviderCurrentTemperature;
+import com.simple.weathermonitor.model.accuweather.location.City;
+import com.simple.weathermonitor.model.accuweather.temperature.ProviderCurrentTemperature;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+
+import static java.util.Optional.ofNullable;
 
 @AllArgsConstructor
 @Service
@@ -21,13 +24,12 @@ public class CityService {
         return provider.getCurrentConditions(configuration.getApiKey(), externalId);
     }
 
-    public ProviderCity getCityInfo(String cityKey) {
-        return provider.getCityInfo(configuration.getApiKey(), cityKey);
+    public City getCityInfo(String cityKey) {
+        return ofNullable(provider.getCityInfo(configuration.getApiKey(), cityKey))
+                .orElseThrow(EntityNotFoundException::new);
     }
 
-    public List<ProviderCity> search(String searchText) {
+    public List<City> search(String searchText) {
         return provider.search(configuration.getApiKey(), searchText);
     }
-
-
 }

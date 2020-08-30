@@ -2,7 +2,7 @@ package com.simple.weathermonitor.service;
 
 import com.simple.weathermonitor.model.CityTemperatureInfo;
 import com.simple.weathermonitor.model.UserObservedCity;
-import com.simple.weathermonitor.model.accuweather.ProviderCurrentTemperature;
+import com.simple.weathermonitor.model.accuweather.temperature.ProviderCurrentTemperature;
 import com.simple.weathermonitor.repository.UserObservedCityRepository;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.tuple.ImmutablePair;

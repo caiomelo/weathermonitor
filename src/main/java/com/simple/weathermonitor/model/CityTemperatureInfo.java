@@ -1,8 +1,8 @@
 package com.simple.weathermonitor.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.simple.weathermonitor.model.accuweather.ProviderCurrentTemperature;
-import com.simple.weathermonitor.model.accuweather.ProviderTemperature;
+import com.simple.weathermonitor.model.accuweather.temperature.ProviderCurrentTemperature;
+import com.simple.weathermonitor.model.accuweather.temperature.ProviderTemperature;
 import lombok.Data;
 
 import java.util.Date;
