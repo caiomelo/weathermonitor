@@ -20,7 +20,7 @@ public class UserObservedCityService {
 
     private final UserObservedCityRepository repository;
 
-    private final WeatherService weatherService;
+    private final CityService cityService;
 
     public List<UserObservedCity> findAll() {
         return repository.findAll();
@@ -45,7 +45,7 @@ public class UserObservedCityService {
     }
 
     private CurrentTemperature getCurrentTemperatureFor(UserObservedCity userObservedCity) {
-        List<CurrentTemperature> currentConditions = weatherService.getCurrentConditions(userObservedCity.getExternalId());
+        List<CurrentTemperature> currentConditions = cityService.getCurrentConditions(userObservedCity.getExternalId());
 
         return ofNullable(currentConditions).orElseGet(Collections::emptyList).isEmpty() ?
                 null : currentConditions.get(0);

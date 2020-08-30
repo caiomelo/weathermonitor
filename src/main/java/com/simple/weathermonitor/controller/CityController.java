@@ -19,20 +19,20 @@ import java.util.List;
 @RequestMapping("/city")
 public class CityController {
 
-    private final CityService weatherService;
+    private final CityService cityService;
 
     @Operation(summary = "Search for a city",
             description = "Searches for a city using the given text")
     @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<City> search(@Parameter(description = "Text to search for") @RequestParam String searchText) {
-        return weatherService.search(searchText);
+        return cityService.search(searchText);
     }
 
     @Operation(summary = "Retrieve city information",
             description = "Retrieves information from the city identified by the given key")
     @GetMapping(value = "/{cityKey}", produces = MediaType.APPLICATION_JSON_VALUE)
     public City getCityInfo(@Parameter(description = "City identifier key") @PathVariable String cityKey) {
-        return weatherService.getCityInfo(cityKey);
+        return cityService.getCityInfo(cityKey);
     }
 
 }

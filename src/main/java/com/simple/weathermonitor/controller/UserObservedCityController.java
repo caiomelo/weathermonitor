@@ -25,14 +25,14 @@ public class UserObservedCityController {
 
     @Operation(summary = "Retrieve all observation info",
             description = "Retrieves all existing city temperature observation periods for all users")
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserObservedCity> findAll() {
         return service.findAll();
     }
 
     @Operation(summary = "Add or update observation period",
             description = "Adds a city temperature observation period for a user or updates the existing one if a valid id is given")
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public UserObservedCity createOrUpdate(@RequestBody @Valid UserObservedCity userObservedCity) {
         return service.createOrUpdate(userObservedCity);
     }
