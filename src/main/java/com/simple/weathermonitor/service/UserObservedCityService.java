@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
+import static org.springframework.util.CollectionUtils.isEmpty;
 
 @Slf4j
 @AllArgsConstructor
@@ -41,7 +42,7 @@ public class UserObservedCityService {
     public List<CityTemperatureInfo> getCityObservationsFor(String email) {
         List<UserObservedCity> observedCities = repository.getActiveFor(email);
 
-        if (observedCities == null || observedCities.isEmpty()) {
+        if (isEmpty(observedCities)) {
             return Collections.emptyList();
         }
 
@@ -54,7 +55,6 @@ public class UserObservedCityService {
 
     private ProviderCurrentTemperature getCurrentTemperatureFor(UserObservedCity userObservedCity) {
         List<ProviderCurrentTemperature> currentConditions = cityService.getCurrentConditions(userObservedCity.getExternalId());
-
         return ofNullable(currentConditions).orElseGet(Collections::emptyList).isEmpty() ?
                 null : currentConditions.get(0);
     }

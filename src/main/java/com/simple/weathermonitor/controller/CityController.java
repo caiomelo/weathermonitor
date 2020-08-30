@@ -1,5 +1,6 @@
 package com.simple.weathermonitor.controller;
 
+import com.simple.weathermonitor.exception.CitySearchException;
 import com.simple.weathermonitor.model.accuweather.location.City;
 import com.simple.weathermonitor.service.CityService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,14 +25,14 @@ public class CityController {
     @Operation(summary = "Search for a city",
             description = "Searches for a city using the given text")
     @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<City> search(@Parameter(description = "Text to search for") @RequestParam String searchText) {
+    public List<City> search(@Parameter(description = "Text to search for") @RequestParam String searchText) throws CitySearchException {
         return cityService.search(searchText);
     }
 
     @Operation(summary = "Retrieve city information",
             description = "Retrieves information from the city identified by the given key")
     @GetMapping(value = "/{cityKey}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public City getCityInfo(@Parameter(description = "City identifier key") @PathVariable String cityKey) {
+    public City getCityInfo(@Parameter(description = "City identifier key") @PathVariable String cityKey) throws CitySearchException {
         return cityService.getCityInfo(cityKey);
     }
 
