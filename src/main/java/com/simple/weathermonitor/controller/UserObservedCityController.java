@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Tag(name = "User temperature observation", description = "Operations on user's temperature observations")
+@Tag(name = "Temperature observation", description = "Operations on users' temperature observations")
 @Slf4j
 @AllArgsConstructor
 @RestController
