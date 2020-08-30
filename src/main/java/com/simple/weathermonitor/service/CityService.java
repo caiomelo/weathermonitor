@@ -11,7 +11,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class WeatherService {
+public class CityService {
 
     private final WeatherProvider provider;
 
