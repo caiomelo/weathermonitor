@@ -1,10 +1,12 @@
 package com.simple.weathermonitor.service;
 
+import com.simple.weathermonitor.exception.SaveObservationException;
 import com.simple.weathermonitor.model.CityTemperatureInfo;
 import com.simple.weathermonitor.model.UserObservedCity;
 import com.simple.weathermonitor.model.accuweather.temperature.ProviderCurrentTemperature;
 import com.simple.weathermonitor.repository.UserObservedCityRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
 
+@Slf4j
 @AllArgsConstructor
 @Service
 public class UserObservedCityService {
@@ -26,8 +29,13 @@ public class UserObservedCityService {
         return repository.findAll();
     }
 
-    public UserObservedCity createOrUpdate(UserObservedCity userObservedCity) {
-        return repository.save(userObservedCity);
+    public UserObservedCity createOrUpdate(UserObservedCity userObservedCity) throws SaveObservationException {
+        try {
+            return repository.save(userObservedCity);
+        } catch (Exception e) {
+            log.error("Failed saving observation period {}", userObservedCity, e);
+            throw new SaveObservationException(e);
+        }
     }
 
     public List<CityTemperatureInfo> getCityObservationsFor(String email) {

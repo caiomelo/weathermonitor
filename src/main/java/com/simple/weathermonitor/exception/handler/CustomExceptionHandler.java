@@ -1,0 +1,27 @@
+package com.simple.weathermonitor.exception.handler;
+
+import com.simple.weathermonitor.exception.SaveObservationException;
+import com.simple.weathermonitor.exception.SaveUserException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
+@ControllerAdvice
+public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(value = {SaveUserException.class, SaveObservationException.class})
+    protected ResponseEntity<Object> handleConflict(SaveUserException ex, WebRequest request) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("error", ex.getMessage() + ": " + ex.getCause().getMessage());
+        body.put("date", LocalDateTime.now());
+        return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
+}

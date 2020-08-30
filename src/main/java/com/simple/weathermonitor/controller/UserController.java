@@ -1,5 +1,6 @@
 package com.simple.weathermonitor.controller;
 
+import com.simple.weathermonitor.exception.SaveUserException;
 import com.simple.weathermonitor.model.User;
 import com.simple.weathermonitor.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,7 +31,7 @@ public class UserController {
     @Operation(summary = "Create or update a user",
             description = "Creates a new user or updates an existing one if a valid id is given")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public User createOrUpdate(@RequestBody @Valid User user) {
+    public User createOrUpdate(@RequestBody @Valid User user) throws SaveUserException {
         return service.createOrUpdate(user);
     }
 }

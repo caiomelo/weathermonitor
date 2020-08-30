@@ -1,5 +1,6 @@
 package com.simple.weathermonitor.controller;
 
+import com.simple.weathermonitor.exception.SaveObservationException;
 import com.simple.weathermonitor.model.CityTemperatureInfo;
 import com.simple.weathermonitor.model.UserObservedCity;
 import com.simple.weathermonitor.service.UserObservedCityService;
@@ -33,7 +34,7 @@ public class UserObservedCityController {
     @Operation(summary = "Add or update observation period",
             description = "Adds a city temperature observation period for a user or updates the existing one if a valid id is given")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserObservedCity createOrUpdate(@RequestBody @Valid UserObservedCity userObservedCity) {
+    public UserObservedCity createOrUpdate(@RequestBody @Valid UserObservedCity userObservedCity) throws SaveObservationException {
         return service.createOrUpdate(userObservedCity);
     }
 
