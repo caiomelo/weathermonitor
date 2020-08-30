@@ -6,9 +6,11 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class Region extends Location {
+public class ProviderAdministrativeArea extends ProviderLocation {
 
     @JsonProperty("ID")
     private String id;
 
+    @JsonProperty("EnglishType")
+    private String type;
 }

@@ -2,7 +2,7 @@ package com.simple.weathermonitor.service;
 
 import com.simple.weathermonitor.model.CityTemperatureInfo;
 import com.simple.weathermonitor.model.UserObservedCity;
-import com.simple.weathermonitor.model.accuweather.CurrentTemperature;
+import com.simple.weathermonitor.model.accuweather.ProviderCurrentTemperature;
 import com.simple.weathermonitor.repository.UserObservedCityRepository;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -44,8 +44,8 @@ public class UserObservedCityService {
                 .collect(Collectors.toList());
     }
 
-    private CurrentTemperature getCurrentTemperatureFor(UserObservedCity userObservedCity) {
-        List<CurrentTemperature> currentConditions = cityService.getCurrentConditions(userObservedCity.getExternalId());
+    private ProviderCurrentTemperature getCurrentTemperatureFor(UserObservedCity userObservedCity) {
+        List<ProviderCurrentTemperature> currentConditions = cityService.getCurrentConditions(userObservedCity.getExternalId());
 
         return ofNullable(currentConditions).orElseGet(Collections::emptyList).isEmpty() ?
                 null : currentConditions.get(0);

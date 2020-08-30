@@ -2,24 +2,22 @@ package com.simple.weathermonitor.model.accuweather;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class City extends Location {
+public class ProviderCity extends ProviderLocation {
 
     @JsonProperty("Key")
     private String key;
 
     @JsonProperty("Region")
-    private Region region;
+    private ProviderRegion region;
 
     @JsonProperty("Country")
-    private Country country;
+    private ProviderCountry country;
 
     @JsonProperty("AdministrativeArea")
-    private AdministrativeArea administrativeArea;
+    private ProviderAdministrativeArea administrativeArea;
 
     @JsonProperty("ParentCity")
-    private City parentCity;
+    private ProviderCity parentCity;
 }

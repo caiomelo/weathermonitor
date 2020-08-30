@@ -1,15 +1,15 @@
 package com.simple.weathermonitor.client;
 
-import com.simple.weathermonitor.model.accuweather.City;
-import com.simple.weathermonitor.model.accuweather.CurrentTemperature;
+import com.simple.weathermonitor.model.accuweather.ProviderCity;
+import com.simple.weathermonitor.model.accuweather.ProviderCurrentTemperature;
 
 import java.util.List;
 
 public interface WeatherProvider {
 
-    City getCityInfo(String apiKey, String cityKey);
+    ProviderCity getCityInfo(String apiKey, String cityKey);
 
-    List<City> search(String apiKey, String searchText);
+    List<ProviderCity> search(String apiKey, String searchText);
 
-    List<CurrentTemperature> getCurrentConditions(String apiKey, String externalId);
+    List<ProviderCurrentTemperature> getCurrentConditions(String apiKey, String externalId);
 }

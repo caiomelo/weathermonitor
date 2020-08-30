@@ -2,8 +2,8 @@ package com.simple.weathermonitor.service;
 
 import com.simple.weathermonitor.client.WeatherProvider;
 import com.simple.weathermonitor.configuration.ConfigurationService;
-import com.simple.weathermonitor.model.accuweather.City;
-import com.simple.weathermonitor.model.accuweather.CurrentTemperature;
+import com.simple.weathermonitor.model.accuweather.ProviderCity;
+import com.simple.weathermonitor.model.accuweather.ProviderCurrentTemperature;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,15 +17,15 @@ public class CityService {
 
     private final ConfigurationService configuration;
 
-    public List<CurrentTemperature> getCurrentConditions(String externalId) {
+    public List<ProviderCurrentTemperature> getCurrentConditions(String externalId) {
         return provider.getCurrentConditions(configuration.getApiKey(), externalId);
     }
 
-    public City getCityInfo(String cityKey) {
+    public ProviderCity getCityInfo(String cityKey) {
         return provider.getCityInfo(configuration.getApiKey(), cityKey);
     }
 
-    public List<City> search(String searchText) {
+    public List<ProviderCity> search(String searchText) {
         return provider.search(configuration.getApiKey(), searchText);
     }
 
