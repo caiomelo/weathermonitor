@@ -6,11 +6,11 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class ProviderCurrentTemperature {
+public class TemperatureObservation {
 
     @JsonProperty("LocalObservationDateTime")
     private Date localObservedDate;
 
     @JsonProperty("Temperature")
-    private ProviderTemperatureInfo temperatureInfo;
+    private TemperatureInfo temperatureInfo;
 }

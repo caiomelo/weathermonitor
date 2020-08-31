@@ -3,7 +3,7 @@ package com.simple.weathermonitor.service;
 import com.simple.weathermonitor.exception.SaveObservationException;
 import com.simple.weathermonitor.model.CityTemperatureInfo;
 import com.simple.weathermonitor.model.UserObservedCity;
-import com.simple.weathermonitor.model.accuweather.temperature.ProviderCurrentTemperature;
+import com.simple.weathermonitor.model.accuweather.temperature.TemperatureObservation;
 import com.simple.weathermonitor.repository.UserObservedCityRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,8 +53,8 @@ public class UserObservedCityService {
                 .collect(Collectors.toList());
     }
 
-    private ProviderCurrentTemperature getCurrentTemperatureFor(UserObservedCity userObservedCity) {
-        List<ProviderCurrentTemperature> currentConditions = cityService.getCurrentConditions(userObservedCity.getExternalId());
+    private TemperatureObservation getCurrentTemperatureFor(UserObservedCity userObservedCity) {
+        List<TemperatureObservation> currentConditions = cityService.getCurrentConditions(userObservedCity.getExternalId());
         return ofNullable(currentConditions).orElseGet(Collections::emptyList).isEmpty() ?
                 null : currentConditions.get(0);
     }

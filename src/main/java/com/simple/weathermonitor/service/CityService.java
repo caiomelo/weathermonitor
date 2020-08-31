@@ -4,7 +4,7 @@ import com.simple.weathermonitor.client.WeatherProvider;
 import com.simple.weathermonitor.configuration.ConfigurationService;
 import com.simple.weathermonitor.exception.CitySearchException;
 import com.simple.weathermonitor.model.accuweather.location.City;
-import com.simple.weathermonitor.model.accuweather.temperature.ProviderCurrentTemperature;
+import com.simple.weathermonitor.model.accuweather.temperature.TemperatureObservation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class CityService {
 
     private final ConfigurationService configuration;
 
-    public List<ProviderCurrentTemperature> getCurrentConditions(String externalId) {
+    public List<TemperatureObservation> getCurrentConditions(String externalId) {
         try {
             return provider.getCurrentConditions(configuration.getApiKey(), externalId);
         } catch (Exception e) {

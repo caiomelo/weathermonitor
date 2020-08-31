@@ -1,8 +1,8 @@
 package com.simple.weathermonitor.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.simple.weathermonitor.model.accuweather.temperature.ProviderCurrentTemperature;
-import com.simple.weathermonitor.model.accuweather.temperature.ProviderTemperature;
+import com.simple.weathermonitor.model.accuweather.temperature.TemperatureObservation;
+import com.simple.weathermonitor.model.accuweather.temperature.Temperature;
 import lombok.Data;
 
 import java.util.Date;
@@ -18,7 +18,7 @@ public class CityTemperatureInfo {
     private Date observationPeriodStart;
     private Date observationPeriodEnd;
 
-    public CityTemperatureInfo(UserObservedCity userObservedCity, ProviderCurrentTemperature currentConditions) {
+    public CityTemperatureInfo(UserObservedCity userObservedCity, TemperatureObservation currentConditions) {
         this.actualObservationDate = currentConditions.getLocalObservedDate();
         this.temperatureMetric = buildTemperature(currentConditions.getTemperatureInfo().getMetricTemperature());
         this.temperatureImperial = buildTemperature(currentConditions.getTemperatureInfo().getImperialTemperature());
@@ -28,7 +28,7 @@ public class CityTemperatureInfo {
         this.observationPeriodEnd = userObservedCity.getObservationPeriodEnd();
     }
 
-    private String buildTemperature(ProviderTemperature temperature) {
+    private String buildTemperature(Temperature temperature) {
         return temperature.getValue() + " " + temperature.getUnit();
     }
 

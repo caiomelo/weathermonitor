@@ -1,7 +1,7 @@
 package com.simple.weathermonitor.client;
 
 import com.simple.weathermonitor.model.accuweather.location.City;
-import com.simple.weathermonitor.model.accuweather.temperature.ProviderCurrentTemperature;
+import com.simple.weathermonitor.model.accuweather.temperature.TemperatureObservation;
 
 import java.util.List;
 
@@ -11,5 +11,5 @@ public interface WeatherProvider {
 
     List<City> search(String apiKey, String searchText);
 
-    List<ProviderCurrentTemperature> getCurrentConditions(String apiKey, String externalId);
+    List<TemperatureObservation> getCurrentConditions(String apiKey, String externalId);
 }
