@@ -1,4 +1,4 @@
-package com.simple.weathermonitor.api;
+package com.simple.weathermonitor.integration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Testcontainers
-class UserApiTest {
+class UserTest {
 
     @Autowired
     private MockMvc mockMvc;
