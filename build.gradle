@@ -20,22 +20,31 @@ repositories {
 
 ext {
 	set('springCloudVersion', "Hoxton.SR7")
+	set('testcontainersVersion', "1.14.3")
+	set('liquibaseCoreVersion', '4.0.0')
+	set('springDocVersion', '1.4.4')
+	set('postgresDriverVersion', '42.2.15')
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.liquibase:liquibase-core:4.0.0'
-	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-	implementation 'org.apache.commons:commons-lang3:3.0'
-	implementation 'org.springdoc:springdoc-openapi-ui:1.4.4'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'org.postgresql:postgresql:42.2.15'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+	implementation "org.springframework.boot:spring-boot-starter-validation"
+	implementation "org.springframework.boot:spring-boot-starter-web"
+	implementation "org.springframework.boot:spring-boot-starter-actuator"
+	implementation "org.liquibase:liquibase-core:${liquibaseCoreVersion}"
+	implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+	implementation "org.apache.commons:commons-lang3:3.0"
+	implementation "org.springdoc:springdoc-openapi-ui:${springDocVersion}"
+	compileOnly "org.projectlombok:lombok"
+	runtimeOnly "org.postgresql:postgresql:${postgresDriverVersion}"
+
+	annotationProcessor "org.projectlombok:lombok"
+
+	testImplementation("org.testcontainers:junit-jupiter:${testcontainersVersion}")
+	testImplementation("com.playtika.testcontainers:embedded-postgresql:1.43")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude group: "org.junit.vintage", module: "junit-vintage-engine"
 	}
 }
 
